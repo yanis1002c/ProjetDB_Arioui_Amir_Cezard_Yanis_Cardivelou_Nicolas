@@ -108,3 +108,25 @@ Voici le schéma conceptuel de la base de données :
 > - Maximum 3 arbitres par match dans ARBITRER.
 >
 > Assure-toi que les noms et prénoms des joueurs et intervenants font référence à des origines variées et sont mixtes. Fournis l'ensemble sous la forme d’un script SQL prêt à être exécuté.
+
+## 5. Étape 5 : Interrogation de la base de données et Scénario d'utilisation
+
+### 5.1 Scénario d'utilisation
+**Rôle :** Responsable Marketing et Performance Sportive de la LNB (Ligue Nationale de Basket).  
+**Objectif :** Analyser l'attractivité des matchs, la rentabilité/remplissage des salles, la performance individuelle des joueurs vedettes, et suivre les affectations des entraîneurs ainsi que les désignations des arbitres pour planifier la communication de la saison suivante.
+
+Les 20 requêtes écrites dans le fichier `4_interrogation.sql` permettent d'extraire l'ensemble des indicateurs nécessaires à ce scénario (projections/sélections ciblées, calculs statistiques par aggrégation, jointures de suivi et requêtes d'analyse comparative).
+
+---
+
+### 5.2 Étude des plans d'exécution et optimisation d'une requête (Méthode TD3 - Exercice 6)
+
+#### Requête d'étude retenue :
+On souhaite obtenir les noms et prénoms des joueurs occupant le poste de **'Meneur'** ayant marqué **plus de 15 points** lors d'un match.
+
+**Formulation SQL :**
+```sql
+SELECT j.nom, j.prenom
+FROM JOUEUR j
+JOIN STATISTIQUES s ON j.no_licence = s.no_licence
+WHERE j.poste = 'Meneur' AND s.points_marques > 15;
